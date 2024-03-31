@@ -1,1 +1,318 @@
+//Question 1.
 
+#include <iostream>
+using namespace std;
+#include <vector>
+
+void printStats(const vector<int>& nums) {
+    if (nums.empty()) {
+        cout << "List is empty\n";
+        return;
+    }
+    
+    int min = nums[0];
+    int max = nums[0];
+    int sum = 0;
+    for (int num : nums) {
+        sum += num;
+        if (num < min) min = num;
+        if (num > max) max = num;
+    }
+    double average = static_cast<double>(sum) / nums.size();
+    
+    int mode = nums[0];
+    int max_freq = 1;
+    for (size_t i = 0; i < nums.size(); ++i) {
+        int count = 0;
+        for (size_t j = 0; j < nums.size(); ++j) {
+            if (nums[j] == nums[i]) ++count;
+        }
+        if (count > max_freq) {
+            mode = nums[i];
+            max_freq = count;
+        }
+    }
+
+    cout << "min, max, sum, average and mode after addition of " << nums.back() << " is " << min << ", " << max << ", " << sum << ", " << average << ", " << mode << ".\n";
+}
+
+int main() {
+    vector<int> nums;
+    int N;
+    cin >> N;
+    while (N--) {
+        int num;
+        cin >> num;
+        nums.push_back(num);
+        printStats(nums);
+    }
+    return 0;
+}
+
+
+
+// Question 2.
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<int>v(n*n,0);
+
+    for(int i=2 ; i<n*n ; i++){
+        for(int j=i*i ; j<n*n; j+=i){
+            if(v[j]==0){
+                v[j]=1;
+            }
+        }
+    }
+    vector<int>prime;
+    int k=0;
+    for(int i=2 ; i<n*n ; i++){
+        if(v[i]==0){
+            prime.push_back(i);
+            k++;
+        }
+    }
+    for(int i=0 ; i<n; i+=2){
+        cout<<prime[i]<<' ';
+    }
+    return 0;
+}
+
+
+//Question 3.
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<int>a(n);
+    for(int i=0 ; i<n ; i++){
+        cin>>a[i];
+    }
+    int m;
+    cin>>m;
+    vector<int>b(m);
+    for(int i=0 ; i<m ; i++){
+        cin>>b[i];
+    }
+    int j=0, k=0;
+    vector<int>c(m+n);
+    if(n>m){
+     for(int i=0 ; i<2*m&&j<n&&k<m ; i+=2){
+         if(a[j]>=b[k]){
+             c[i]=b[k];
+             c[i+1]=a[j];
+             j++;
+             k++;
+         }
+         else if(a[j]<=b[k]){
+             c[i]=a[j];
+             c[i+1]=b[k];
+             j++;
+             k++;
+         }
+         
+     }
+     for(int i=0 ; i<n+m ; i++){
+        cout<<c[i]<<' ';
+    }
+     int j=m;
+     for(int i=2*m-1 ; j<n ; i++){
+        if(a[j]<=c[i]){
+            c.insert(c.begin()+i,a[j]);          
+        }
+        j++;
+     }
+    }
+    if (m > n) {
+        for (int i = 0; i < 2 * m && j < n && k < m; i += 2) {
+            if (a[j] >= b[k]) {
+                c[i] = b[k];
+                c[i + 1] = a[j];
+                j++;
+                k++;
+            } else if (a[j] <= b[k]) {
+                c[i] = a[j];
+                c[i + 1] = b[k];
+                j++;
+                k++;
+            }
+        }
+        int j = n;
+        for (int i = 2 * n - 1; k < m; i++) {
+            if (b[k] <= c[i]) {
+                c.insert(c.begin() + i, b[k]);
+                k++;
+            }
+        }
+    }
+	if(m==n){
+        for(int i=0 ; i<2*m&&j<n&&k<m ; i+=2){
+         if(a[j]>=b[k]){
+             c[i]=b[k];
+             c[i+1]=a[j];
+             j++;
+             k++;
+         }
+         else if(a[j]<=b[k]){
+             c[i]=a[j];
+             c[i+1]=b[k];
+             j++;
+             k++;
+         }
+         
+     }
+    }
+
+    for(int i=0 ; i<n+m ; i++){
+        cout<<c[i]<<' ';
+    }
+    return 0;
+}
+
+
+
+//Question 4.
+
+#include <iostream>
+using namespace std;
+
+// Function to calculate (a^b % m)
+int calculateModuloPower(int a, int b, int m) {
+    if (b == 0)
+        return 1;
+    long long int result = 1;
+    long long int base = a % m;
+    while (b > 0) {
+       
+        if (b % 2 == 1)
+            result = (result * base) % m;
+            b /= 2;
+             base = (base * base) % m;
+    }
+    return (int)result;
+}
+
+int main() {
+    int a, b, m;
+     cout<< "Enter the values of a, b, and m: ";
+      cin>> a >> b >> m;
+
+    int result = calculateModuloPower(a, b, m);
+
+    cout << "Result of (" << a << "^" << b << " % " << m << ") is: " << result << std::endl;
+
+    return 0;
+}
+
+
+//Short Method:--
+// #include<bits/stdc++.h>
+// using namespace std;
+// int main(){
+//     int a, b , m,c;
+//     cin>>a>>b>>m;
+//     c=pow(a,b);
+//     cout<<c%m<<endl;
+//     return 0;
+// }
+
+
+
+//Question 5.
+
+#include<bits/stdc++.h>
+using namespace std;
+ int lowerbound(vector<int>v,int x){
+    int upper=v.size()-1, lower=0, mid=(upper+lower)/2;
+    while(upper>=lower){
+        if(upper==lower+1){
+            return v[upper];
+        }
+        else if(x==v[mid]){
+            return v[mid+1];
+            break;
+        }
+        else if(x>v[mid]){
+            lower=mid;
+            mid=(upper+lower)/2;
+        }
+        else if(x<v[mid]){
+            upper=mid;
+            mid=(upper+lower)/2;
+        }
+    }
+ }
+ int upperbound(vector<int>v,int x){
+    int upper=v.size()-1, lower=0, mid=(upper+lower)/2;
+    while(upper>=lower){
+        if(upper==lower+1){
+            return v[upper];
+        }
+        else if(x==v[mid]){
+            return v[mid+1];
+            break;
+        }
+        else if(x>v[mid]){
+            lower=mid;
+            mid=(upper+lower)/2;
+        }
+        else if(x<v[mid]){
+            upper=mid;
+            mid=(upper+lower)/2;
+        }
+    }
+ }
+ int ispresent(vector<int>v,int x){
+    int upper=v.size()-1, lower=0, mid=(upper+lower)/2;
+    while(upper>=lower){
+        if(upper==lower+1){
+            if(upper==x||lower==x){
+            return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if(x==v[mid]){
+            return true;
+            break;
+        }
+        else if(x>v[mid]){
+            lower=mid;
+            mid=(upper+lower)/2;
+        }
+        else if(x<v[mid]){
+            upper=mid;
+            mid=(upper+lower)/2;
+        } else{
+            return false;
+        }
+    }
+ }
+ 
+ 
+ int main(){
+    int n;
+    cin>>n;
+    vector<int>v(n);
+    for(int i=0 ; i<n ; i++){
+        cin>>v[i];
+    }
+    int x;
+    cin>>x;
+    sort(v.begin(),v.end());
+    cout<<lowerbound(v,x)<<endl;
+    cout<<upperbound(v,x)<<endl;
+    if(ispresent(v,x)){
+        cout<<"true"<<endl;
+    } else {
+        cout<<"false"<<endl;
+    }
+   
+    return 0;
+ }
