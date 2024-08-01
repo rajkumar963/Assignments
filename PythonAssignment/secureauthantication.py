@@ -12,11 +12,11 @@ def validate_password(password, username, last_three_passwords):
     if any(password[i] == password[i+1] == password[i+2] for i in range(len(password) - 2)):
         return False, "Password cannot contain sequences of three or more repeating characters."
 
-    # Check for username sequence
+    # Check for username sequence:-
     if any(username[i:i+3] in password for i in range(len(username) - 2)):
         return False, "Password cannot contain sequences of three or more consecutive characters from the username."
 
-    # Check historical password check
+    # Check historical password check:-
     if password in last_three_passwords:
         return False, "Password cannot be the same as any of the last three passwords used."
     
